@@ -1,0 +1,161 @@
+<!--
+README
+Title: Browser Environment Dashboard
+
+Description:
+This project is a web-based dashboard that uses JavaScript Browser Objects
+navigator, screen, document, location, history, and window
+to display browser information, page details, and provide navigation controls.
+It also dynamically changes background color based on screen width.
+All CSS and JavaScript are embedded in this single file.
+Author: John Larry Vivero
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser Environment Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+        }
+
+        .profile {
+            background: #222;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Profile -->
+<div class="profile">
+    <h2>Student Profile</h2>
+    <p><strong>Complete Name:</strong> John Larry Vivero</p>
+    <p><strong>Sex:</strong> Male</p>
+    <p><strong>Address:</strong>Palale, San Jose, Camarines Sur</p>
+    <p><strong>Course, Year, Section:</strong> BSIT 2D</p>
+    <p><strong>Name of School:</strong> Partido State University</p>
+    <p><strong>Semester & Academic Year:</strong> 2nd Semester AY 2025-2026</p>
+    <p><strong>Subject Code & Title:</strong> PF2 Event Driven Programming</p>
+    <p><strong>Subject Instructor:</strong> Arjay F. Abio</p>
+</div>
+
+<!-- Part A -->
+<div class="section">
+    <h3>Part A: Browser Information</h3>
+    <p id="browserInfo"></p>
+</div>
+
+<!-- Part B -->
+<div class="section">
+    <h3>Part B: Page Information</h3>
+    <p><strong>Current URL:</strong> <span id="currentURL"></span></p>
+    <p><strong>Hostname:</strong> <span id="hostname"></span></p>
+    <p><strong>Page Title:</strong> <span id="pageTitle"></span></p>
+    <button onclick="changeTitle()">Change Page Title</button>
+</div>
+
+<!-- Part C -->
+<div class="section">
+    <h3>Part C: Navigation Controls</h3>
+    <button onclick="location.reload()">Reload Page</button>
+    <button onclick="location.href='https://vercel.com/'">Go to Versel</button>
+    <button onclick="history.back()">Back</button>
+    <button onclick="history.forward()">Forward</button>
+</div>
+
+<script>
+/* PART A: Display Browser Info */
+
+
+
+// Using navigator and screen objects
+function displayBrowserInfo() {
+    const info =
+        "Browser: " + navigator.appName + " " + navigator.appVersion + "<br>" +
+        "Platform (OS): " + navigator.platform + "<br>" +
+        "Java Enabled: " + navigator.javaEnabled() + "<br>" +
+        "Screen Resolution: " + screen.width + " x " + screen.height + "<br>" +
+        "Available Screen Size: " + screen.availWidth + " x " + screen.availHeight + "<br>" +
+        "Color Depth: " + screen.colorDepth;
+
+    document.getElementById("browserInfo").innerHTML = info;
+}
+
+
+// Part B: Page Location
+function displayPageInfo() {
+    document.getElementById("currentURL").textContent = location.href;
+    document.getElementById("hostname").textContent = location.hostname;
+    document.getElementById("pageTitle").textContent = document.title;
+}
+
+// Change page title dynamically
+function changeTitle() {
+    const newTitle = prompt("Enter new page title:");
+    if (newTitle) {
+        document.title = newTitle;
+        document.getElementById("pageTitle").textContent = newTitle;
+    }
+}
+
+
+// Part D: Dyanamic Backgroud
+function changeBackgroundByScreen() {
+    const width = window.innerWidth;
+
+    if (width < 600) {
+        document.body.style.background =
+            "linear-gradient(135deg, #4e73df, #0000ff)"; // Mobile
+    } 
+    else if (width >= 600 && width <= 991) {
+        document.body.style.background =
+            "linear-gradient(135deg, #28a745, #1cc88a)"; // Tablet
+    } 
+    else {
+        document.body.style.background =
+            "linear-gradient(135deg, #fd7e14, #ffb347)"; // Desktop
+    }
+}
+
+// Run when page loads 
+window.onload = function () {
+    displayBrowserInfo();
+    displayPageInfo();
+    changeBackgroundByScreen();
+};
+
+window.onresize = changeBackgroundByScreen;
+
+</script>
+
+</body>
+</html>
